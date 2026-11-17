@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>工具箱 · omoshiroi.loc.cc</title>
+<meta name="description" content="常用在线小工具集合">
+<style>
+  :root{
+    --bg:#f5f7fa;--card:#ffffff;--ink:#1f2733;--ink-soft:#6b7686;
+    --line:#e3e8ef;--accent:#2f6df6;--accent-soft:#eaf1ff;
+    --shadow:0 1px 3px rgba(20,30,50,.06),0 8px 24px rgba(20,30,50,.05);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.6;font-size:14px;
+  }
+  .topbar{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
+  .topbar .inner{max-width:1040px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;gap:16px}
+  .logo{font-weight:700;font-size:18px;text-decoration:none;color:inherit}
+  .logo span{color:var(--accent)}
+  .spacer{flex:1}
+  .topbar a.nav{font-size:13px;color:var(--ink-soft);text-decoration:none;padding:6px 10px;border-radius:8px}
+  .topbar a.nav:hover{background:var(--accent-soft);color:var(--accent)}
+  .wrap{max-width:1040px;margin:0 auto;padding:32px 24px 60px}
+  .intro{margin-bottom:24px}
+  .intro h1{margin:0 0 6px;font-size:26px}
+  .intro p{margin:0;color:var(--ink-soft);font-size:14px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:var(--shadow)}
+  .card h2{margin:0 0 4px;font-size:16px;display:flex;align-items:center;gap:8px}
+  .card .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);display:inline-block}
+  .card .desc{margin:0 0 14px;font-size:12.5px;color:var(--ink-soft)}
+  textarea,input[type=text],input[type=number],select{
+    width:100%;border:1px solid var(--line);border-radius:8px;padding:9px 11px;
+    font-size:13px;font-family:inherit;color:var(--ink);background:#fbfcfe;outline:none;resize:vertical;
+  }
+  textarea:focus,input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  textarea{min-height:88px}
+  .row{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}
+  .row label{font-size:12.5px;color:var(--ink-soft)}
+  button{
+    border:none;background:var(--accent);color:#fff;padding:8px 15px;border-radius:8px;
+    font-size:13px;cursor:pointer;font-family:inherit;
+  }
+  button:hover{opacity:.9}
+  button.ghost{background:var(--accent-soft);color:var(--accent)}
+  .out{margin-top:10px;background:#f7f9fc;border:1px solid var(--line);border-radius:8px;padding:10px;
+       min-height:42px;white-space:pre-wrap;word-break:break-all;font-family:Consolas,Monaco,monospace;font-size:12.5px;color:#243247}
+  .hint{font-size:11.5px;color:#9aa5b4;margin-top:6px}
+  .footer{text-align:center;color:#9aa5b4;font-size:12px;margin-top:40px;padding-top:20px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="inner">
+    <a class="logo" href="https://omoshiroi.loc.cc">omoshiroi<span>.loc.cc</span></a>
+    <div class="spacer"></div>
+    <a class="nav" href="https://omoshiroi.loc.cc">导航</a>
+    <a class="nav" href="https://blog.omoshiroi.loc.cc">博客</a>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="intro">
+    <h1>工具箱</h1>
+    <p>常用在线小工具，全部在浏览器本地运行，内容不会上传服务器。</p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2><span class="dot"></span>JSON 格式化</h2>
+      <p class="desc">美化或压缩 JSON，并校验格式是否正确</p>
+      <textarea id="jsonIn" placeholder='粘贴 JSON，例如 {"a":1}'></textarea>
+      <div class="row">
+        <button onclick="fmtJson()">格式化</button>
+        <button class="ghost" onclick="minJson()">压缩</button>
+      </div>
+      <div class="out" id="jsonOut">结果</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="dot"></span>Base64 编解码</h2>
+      <p class="desc">支持中文（UTF-8）</p>
+      <textarea id="b64In" placeholder="输入文本"></textarea>
+      <div class="row">
+        <button onclick="b64Encode()">编码</button>
+        <button class="ghost" onclick="b64Decode()">解码</button>
+      </div>
+      <div class="out" id="b64Out">结果</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="dot"></span>URL 编解码</h2>
+      <p class="desc">encodeURIComponent / decodeURIComponent</p>
+      <textarea id="urlIn" placeholder="输入文本或 URL 参数"></textarea>
+      <div class="row">
+        <button onclick="urlEncode()">编码</button>
+        <button class="ghost" onclick="urlDecode()">解码</button>
+      </div>
+      <div class="out" id="urlOut">结果</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="dot"></span>时间戳转换</h2>
+      <p class="desc">Unix 时间戳与日期互转，自动识别秒 / 毫秒</p>
+      <input type="text" id="tsIn" placeholder="输入时间戳或日期，如 1731000000">
+      <div class="row">
+        <button onclick="tsToDate()">时间戳 → 日期</button>
+        <button class="ghost" onclick="dateToTs()">日期 → 时间戳</button>
+      </div>
+      <div class="out" id="tsOut">结果</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="dot"></span>文本统计</h2>
+      <p class="desc">字符数、单词数、行数、字节数</p>
+      <textarea id="cntIn" placeholder="输入文本" oninput="countText()"></textarea>
+      <div class="out" id="cntOut">输入后自动统计</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="dot"></span>随机密码生成</h2>
+      <p class="desc">浏览器本地生成，不经过网络</p>
+      <div class="row">
+        <label>长度</label>
+        <input type="number" id="pwdLen" value="16" min="4" max="64" style="width:80px">
+        <label><input type="checkbox" id="pwdSym" checked style="width:auto"> 含符号</label>
+      </div>
+      <div class="row">
+        <button onclick="genPwd()">生成</button>
+        <button class="ghost" onclick="copyOut('pwdOut')">复制</button>
+      </div>
+      <div class="out" id="pwdOut">点击生成</div>
+    </div>
+  </div>
+
+  <div class="footer">© omoshiroi.loc.cc · 工具均在本地浏览器运行，请勿用于敏感数据</div>
+</div>
+
+<script>
+function fmtJson(){
+  const o=document.getElementById('jsonOut');
+  try{o.textContent=JSON.stringify(JSON.parse(document.getElementById('jsonIn').value),null,2);}
+  catch(e){o.textContent='格式错误：'+e.message;}
+}
+function minJson(){
+  const o=document.getElementById('jsonOut');
+  try{o.textContent=JSON.stringify(JSON.parse(document.getElementById('jsonIn').value));}
+  catch(e){o.textContent='格式错误：'+e.message;}
+}
+function b64Encode(){
+  const s=document.getElementById('b64In').value;
+  document.getElementById('b64Out').textContent=btoa(String.fromCharCode(...new TextEncoder().encode(s)));
+}
+function b64Decode(){
+  const o=document.getElementById('b64Out');
+  try{
+    const b=Uint8Array.from(atob(document.getElementById('b64In').value.trim()),c=>c.charCodeAt(0));
+    o.textContent=new TextDecoder().decode(b);
+  }catch(e){o.textContent='解码失败：'+e.message;}
+}
+function urlEncode(){document.getElementById('urlOut').textContent=encodeURIComponent(document.getElementById('urlIn').value);}
+function urlDecode(){
+  const o=document.getElementById('urlOut');
+  try{o.textContent=decodeURIComponent(document.getElementById('urlIn').value);}
+  catch(e){o.textContent='解码失败：'+e.message;}
+}
+function tsToDate(){
+  let v=document.getElementById('tsIn').value.trim();
+  if(!/^\d+$/.test(v)){document.getElementById('tsOut').textContent='请输入纯数字时间戳';return;}
+  let n=Number(v); if(String(n).length<=10)n*=1000;
+  document.getElementById('tsOut').textContent=new Date(n).toLocaleString('zh-CN')+' / '+new Date(n).toISOString();
+}
+function dateToTs(){
+  const v=document.getElementById('tsIn').value.trim();
+  const d=new Date(v);
+  document.getElementById('tsOut').textContent=isNaN(d.getTime())?'日期格式无法识别':'秒：'+Math.floor(d.getTime()/1000)+'\n毫秒：'+d.getTime();
+}
+function countText(){
+  const s=document.getElementById('cntIn').value;
+  const words=(s.match(/[A-Za-z0-9]+|[\u4e00-\u9fa5]/g)||[]).length;
+  document.getElementById('cntOut').textContent='字符数：'+s.length+'\n词/汉字数：'+words+'\n行数：'+(s?s.split('\n').length:0)+'\nUTF-8 字节：'+new TextEncoder().encode(s).length;
+}
+function genPwd(){
+  let cs='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  if(document.getElementById('pwdSym').checked)cs+='!@#$%^&*()-_=+[]{}?';
+  let len=Math.min(64,Math.max(4,parseInt(document.getElementById('pwdLen').value)||16));
+  const a=new Uint32Array(len);crypto.getRandomValues(a);
+  document.getElementById('pwdOut').textContent=Array.from(a,x=>cs[x%cs.length]).join('');
+}
+function copyOut(id){
+  const t=document.getElementById(id).textContent;
+  if(navigator.clipboard)navigator.clipboard.writeText(t).then(()=>alert('已复制'));
+  else alert('当前环境不支持自动复制，请手动选择');
+}
+</script>
+</body>
+</html>
